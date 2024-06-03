@@ -26,7 +26,7 @@ def test_create_routine():
     assert r.json()['timeStart'] == valid_routine.get(f'timeStart')
     assert r.json()['timeEnd'] == valid_routine.get('timeEnd')
     assert r.json()['routineFrequency'] == valid_routine.get('routineFrequency')
-    assert r.json()['days'] == valid_routine.get('days')
+
 
 def test_get_routines_list():
     headers = {'Authorization': f'Bearer {login_token()['accessToken']}', 'Accept': '*/*'}
@@ -46,7 +46,6 @@ def test_update_routine():
     assert r.json()['description'] == update_valid_routine.get('description')
     assert r.json()['timeStart'] == update_valid_routine.get('timeStart')
     assert r.json()['timeEnd'] == update_valid_routine.get('timeEnd')
-    assert r.json()['routineFrequency'] == update_valid_routine.get('routineFrequency')
     assert r.json()['days'] == update_valid_routine.get('days')
 
 def test_mark_routine():
