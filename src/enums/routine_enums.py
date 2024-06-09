@@ -18,7 +18,7 @@ valid_routine = {
     "timeStart": "2024-06-04T12:18:33.718",
     "timeEnd": "2024-06-04T12:18:33.718",
     "routineFrequency": "ONCE",
-    "days": [1, 3],
+    "days": [2, 3],
 }
 
 update_valid_routine = {

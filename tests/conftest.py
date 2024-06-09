@@ -7,15 +7,21 @@ from src.enums.routine_enums import valid_routine
 from src.enums.task_enums import valid_task
 from src.enums.timeframe_enums import valid_timeframe
 
-
+@pytest.fixture(scope='session')
 def login_token():
     response = requests.post(f"{USER_SERVICE_URL}auth/log-in", json=valid_user_login)
-    return response.json()
+    return response.json()["accessToken"]
+
+@pytest.fixture(scope='session')
+def refresh_token():
+    response = requests.post(f"{USER_SERVICE_URL}auth/log-in", json=valid_user_login)
+    return response.json()["refreshToken"]
 
 
-def create_routine():
+@pytest.fixture(scope='session')
+def create_routine(login_token):
     headers = {
-        "Authorization": f"Bearer {login_token()['accessToken']}",
+        "Authorization": f"Bearer {login_token}",
         "Accept": "*/*",
     }
     response = requests.post(
@@ -24,9 +30,10 @@ def create_routine():
     return response.json()
 
 
-def create_task():
+@pytest.fixture(scope='session')
+def task_id(login_token):
     headers = {
-        "Authorization": f"Bearer {login_token()['accessToken']}",
+        "Authorization": f"Bearer {login_token}",
         "Accept": "*/*",
         "Content-Type": "application/json",
     }
@@ -36,9 +43,10 @@ def create_task():
     return taskId.json()
 
 
-def create_timeframe():
+@pytest.fixture(scope='session')
+def create_timeframe(login_token):
     headers = {
-        "Authorization": f"Bearer {login_token()['accessToken']}",
+        "Authorization": f"Bearer {login_token}",
         "Accept": "*/*",
         "Content-Type": "application/json",
     }
